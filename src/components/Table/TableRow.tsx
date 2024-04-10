@@ -1,5 +1,4 @@
 import Button from '../Button';
-
 interface TableRowProps {
   name: string;
   age: number;
@@ -16,6 +15,7 @@ const TableRow = (props
       <td className={`${tdStyle} flex gap-2`}>
         <Button label="Editar" />
         <Button label="Excluir" />
+        <Button label="Atualizar" />
       </td>
     </tr>
   );

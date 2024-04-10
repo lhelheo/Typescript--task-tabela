@@ -1,7 +1,7 @@
 interface TableHeaderProps{
-  name: string;
-  age: number;
-  acao: string;
+  textName: string;
+  textAge: string;
+  textAcao: string;
 }
 
 const thStyle = "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider";
@@ -14,20 +14,21 @@ const TableHeader = (props: TableHeaderProps) => {
                 scope="col"
                 className={thStyle}
               >
-                {props.name}
+                {props.textName}
               </th>
               <th
                 scope="col"
                 className={thStyle}
               >
-                {props.age}
+                {props.textAge}
               </th>
               <th
                 scope="col"
                 className={thStyle}
               >
-                {props.acao}
+                {props.textAcao}
               </th>
+              
             </tr>
           </thead>
   );
