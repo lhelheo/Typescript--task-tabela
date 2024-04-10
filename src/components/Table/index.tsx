@@ -1,12 +1,21 @@
 import React from 'react';
-import Button from '../Button';
+import TableRow from './TableRow';
+import data from '../../data.json';
+interface Person {
+  name: string;
+  age: number;
+}
 
 class Table extends React.Component {
   render(): React.ReactNode {
+    const rows = data.map((person: Person, index: number) => (
+      <TableRow key={index} name={person.name} age={person.age} />
+    ));
+
     return (
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+        <thead className="bg-gray-50">
             <tr>
               <th
                 scope="col"
@@ -28,23 +37,8 @@ class Table extends React.Component {
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap">João</td>
-              <td className="px-6 py-4 whitespace-nowrap">30</td>
-              <td className="px-6 py-4 whitespace-nowrap flex gap-2">
-                <Button>Editar</Button>
-                <Button>Excluir</Button>
-              </td>
-            </tr>
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap">Maria</td>
-              <td className="px-6 py-4 whitespace-nowrap">25</td>
-              <td className="px-6 py-4 whitespace-nowrap flex gap-2">
-                <Button>Editar</Button>
-                <Button>Excluir</Button>
-              </td>
-            </tr>
+          <tbody className="min-w-full divide-y divide-gray-200">
+            {rows}
           </tbody>
         </table>
       </div>
