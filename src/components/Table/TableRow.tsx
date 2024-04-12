@@ -41,7 +41,7 @@ const TableRow = (props
           </td>
           <td className={tdStyle}>{props.age}</td>
         <td className={`${tdStyle} flex gap-2 relative`}>
-          <button onClick={() => setDropdownOpen(!dropdownOpen)} className="py-2 px-4 border rounded">
+          <button onClick={() => setDropdownOpen(!dropdownOpen)} className="py-2 px-4 border  rounded hover:text-blue-500 hover:border-blue-500">
             <Play size={15}/>
           </button>
           {dropdownOpen && (

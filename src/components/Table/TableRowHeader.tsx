@@ -1,7 +1,7 @@
 import data from '../../data.json';
 const thStyle = "px-6 py-3 text-left text-xs font-medium text-gray-500";
 
-const TableRowHeader = () => {
+  const TableRowHeader = () => {
   const headers = data.length > 0 ? Object.keys(data[0]) : [];
 
   return (
