@@ -1,6 +1,7 @@
 import { Play } from 'lucide-react'
 import { useState } from 'react';
 
+
 interface TableRowProps {
   name: string;
   age: number;
@@ -20,6 +21,7 @@ const TableRow = (props
       setIsSelected(!isSelected); 
     };
 
+    const liStyle = "cursor-pointer p-2 hover:bg-gray-100";
 
     const tdStyle = `px-6 py-4 whitespace-nowrap text-sm text-gray-500 ${isSelected ? 'bg-blue-400 text-white' : ''}`;
   
@@ -44,9 +46,12 @@ const TableRow = (props
           </button>
           {dropdownOpen && (
             <ul className="absolute right-0 top-full mt-2 bg-white shadow-lg rounded z-10">
-              <li className="block cursor-pointer py-2 px-4 hover:bg-gray-100" onClick={() => handleActionClick('Editar')}>Editar</li>
-              <li className="block cursor-pointer py-2 px-4 hover:bg-gray-100" onClick={() => handleActionClick('Excluir')}>Excluir</li>
-              <li className="block cursor-pointer py-2 px-4 hover:bg-gray-100" onClick={() => handleActionClick('Atualizar')}>Atualizar</li>
+              <li className={`${liStyle}`}
+               onClick={() => handleActionClick('Editar')}>Editar</li>
+              <li className={`${liStyle}`}
+               onClick={() => handleActionClick('Excluir')}>Excluir</li>
+              <li className={`${liStyle}`}
+               onClick={() => handleActionClick('Atualizar')}>Atualizar</li>
             </ul>
           )}
         </td>

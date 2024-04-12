@@ -2,9 +2,10 @@ import { useState } from 'react';
 import TableRow from './TableRow';
 import data from '../../data.json';
 import { ChevronDown, Download } from 'lucide-react';
+import TableRowHeader from './TableRowHeader';
 
   type FilterOption = 'all' | 'age' | 'name';
-  const thStyle = "px-6 py-3 text-left text-xs font-medium text-gray-500";
+
   const liStyle = "cursor-pointer p-2 hover:bg-gray-100";
   const pStyle = "w-[140px] flex gap-2 justify-center items-center";
 
@@ -64,8 +65,8 @@ const Table = () => {
           {dropdownOpen && (
             <ul className="absolute z-10 w-full mt-1 bg-white border rounded shadow-lg">
               <li className={`${liStyle}${filterBy === 'all' ? 'bg-gray-300' : ''}`} onClick={() => handleFilterBy('all')}>Todos</li>
-              <li className={`${liStyle} ${filterBy === 'age' ? 'bg-gray-300' : ''}`} onClick={() => handleFilterBy('age')}>Filtro Idade</li>
-              <li className={`${liStyle} ${filterBy === 'name' ? 'bg-gray-300' : ''}`} onClick={() => handleFilterBy('name')}>Filtro Nome</li>
+              <li className={`${liStyle} ${filterBy === 'age' ? 'bg-gray-300' : ''}`} onClick={() => handleFilterBy('age')}>Maiores de 20</li>
+              <li className={`${liStyle} ${filterBy === 'name' ? 'bg-gray-300' : ''}`} onClick={() => handleFilterBy('name')}>Nomes depois de M</li>
             </ul>
           )}
         </div>
@@ -79,18 +80,7 @@ const Table = () => {
             <p className={`${pStyle} justify-center cursor-pointer  text-red-500`}>Show all</p>
             <p className={`${pStyle} justify-center cursor-pointer`}><Download />Download</p>
           </div>
-            <tr>
-              <th scope="col" className={thStyle}>
-                Nome
-              </th>
-              <th scope="col" className={thStyle}>
-                Idade
-              </th>
-              <th scope="col" className={thStyle}
-              >
-                Ação
-              </th>
-            </tr>
+            <TableRowHeader />
           </thead>
           <tbody className="divide-y divide-gray-200">
             {rows}
