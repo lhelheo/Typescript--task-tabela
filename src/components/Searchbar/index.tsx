@@ -1,7 +1,7 @@
 import Button from "../Button";
 
 interface SearchbarProps {
-    onFilterClick: () => void; // Adicionado um manipulador de clique de filtro
+    onFilterClick: () => void; 
     className: string;
 }
   
