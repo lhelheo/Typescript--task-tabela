@@ -11,5 +11,33 @@
 	{
 		"name": "will smith",
 		"age": 30
+	},
+	{
+		"name": "Arnold Schwarzenegger",
+		"age": 40
+	},
+	{
+		"name": "Bruce Willis",
+		"age": 50
+	},
+	{
+		"name": "Sylvester Stallone",
+		"age": 60
+	},
+	{
+		"name": "Tom Cruise",
+		"age": 70
+	},
+	{
+		"name": "Tom Hanks",
+		"age": 120
+	},
+	{
+		"name": "Robert De Niro",
+		"age": 90
+	},
+	{
+		"name": "Al Pacino",
+		"age": 100
 	}
 ]
