@@ -1,97 +1,97 @@
 import { useState } from 'react';
 import TableRow from './TableRow';
 import data from '../../data.json';
-import TableHeader from './TableHeader';
-import Searchbar from '../Searchbar';
-import { ArrowDown, ArrowUp, RotateCw, Trash } from 'lucide-react';
+import { ChevronDown, Download } from 'lucide-react';
+
+  type FilterOption = 'all' | 'age' | 'name';
+  const thStyle = "px-6 py-3 text-left text-xs font-medium text-gray-500";
+  const liStyle = "cursor-pointer p-2 hover:bg-gray-100";
+  const pStyle = "w-[140px] flex gap-2 justify-center items-center";
+
 
 const Table = () => {
   const [filterText, setFilterText] = useState('');
-  const [orderBy, setOrderBy] = useState({ column: 'default', direction: 'asc' });
-  const [filterBy, setFilterBy] = useState('all');
+  const [filterBy, setFilterBy] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleFilterChange = (event) => {
-    setFilterText(event.target.value.toLowerCase());
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
   };
 
-  const handleOrderBy = (column) => {
-    if (orderBy.column === column) {
-      setOrderBy(prevOrder => ({
-        ...prevOrder,
-        direction: prevOrder.direction === 'asc' ? 'desc' : 'asc'
-      }));
-    } else {
-      setOrderBy({ column: column, direction: 'asc' });
-    }
-  };
+  const countItems = () => {
+    return data.length;
+  }
 
-  const handleResetOrder = () => {
-    setOrderBy({ column: 'default', direction: 'asc' });
-  };
-
-  const handleFilterBy = (option) => {
+  const handleFilterBy = (option: FilterOption) => {
     setFilterBy(option);
+    setDropdownOpen(false);
   };
 
-  const sortedData = [...data].sort((a, b) => {
-    if (orderBy.column === 'default') {
-      return 0; 
-    } else if (orderBy.column === 'name') {
-      return orderBy.direction === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-    } else if (orderBy.column === 'age') {
-      return orderBy.direction === 'asc' ? a.age - b.age : b.age - a.age;
+  const filteredData = data.filter(person => {
+    if (filterBy === 'age' && person.age <= 20) {
+      return false;
+    } else if (filterBy === 'name' && person.name.toLowerCase().charCodeAt(0) < 109) {
+      return false;
     }
-    return 0;
-  });
-
-  const filteredData = sortedData.filter(person => {
-    if (filterBy === 'age') {
-      return person.age > 20;
-    } else if (filterBy === 'name') {
-      return person.name.toLowerCase().charCodeAt(0) <= 109;
-    } else {
-      return person.name.toLowerCase().includes(filterText) ||
-             person.age.toString().includes(filterText);
-    }
+    return person.name.toLowerCase().includes(filterText) || person.age.toString().includes(filterText);
   });
 
   const rows = filteredData.map((person, index) => (
-    <TableRow key={index} name={person.name} age={person.age} />
+    <>
+      <TableRow key={index} name={person.name} age={person.age} />
+    </>
   ));
 
   return (
     <>
       <div className="flex flex-col items-center">
-        <label className="flex border rounded p-2 m-2 ">
+        <label className="flex border rounded p-2 m-2">
           <input
             type="text"
             placeholder="Pesquisar..."
             value={filterText}
-            onChange={handleFilterChange}
+            onChange={(e) => setFilterText(e.target.value.toLowerCase())}
             className="p-2"
           />
-          <Trash className="cursor-pointer text-gray-500 h-[40px]" onClick={() => setFilterText('')}/>
-          {/* dúvida no height utilizado*/}
+          <button className="px-2" onClick={() => setFilterText('')}>Limpar</button>
         </label>
         
-        <div className='text-gray-500 flex flex-col items-center'>
-          <button className='flex' onClick={() => handleOrderBy('age')}>Idade {orderBy.column === 'age' ? (orderBy.direction === 'asc' ? <ArrowUp /> : <ArrowDown />) : ''}</button>
-          <button className='flex' onClick={() => handleOrderBy('name')}>Nome {orderBy.column === 'name' ? (orderBy.direction === 'asc' ? <ArrowUp /> : <ArrowDown />) : ''}</button>
-          <button className='flex' onClick={handleResetOrder}><RotateCw /></button>
-        </div>
-
-        <div className="m-2 rounded border border-gray-500">
-          <select value={filterBy} onChange={(e) => handleFilterBy(e.target.value)}>
-            <option value="all">Todos</option>
-            <option value="age">Filtro Idade</option>
-            <option value="name">Filtro Nome</option>
-          </select>
+        <div className="relative m-2">
+          <button onClick={toggleDropdown} className="flex items-center gap-1 px-4 py-2 border rounded">
+            Filtrar: {filterBy === 'all' ? 'Todos' : filterBy === 'age' ? 'Idade' : 'Nome'}
+            <ChevronDown />
+          </button>
+          {dropdownOpen && (
+            <ul className="absolute z-10 w-full mt-1 bg-white border rounded shadow-lg">
+              <li className={`${liStyle}${filterBy === 'all' ? 'bg-gray-300' : ''}`} onClick={() => handleFilterBy('all')}>Todos</li>
+              <li className={`${liStyle} ${filterBy === 'age' ? 'bg-gray-300' : ''}`} onClick={() => handleFilterBy('age')}>Filtro Idade</li>
+              <li className={`${liStyle} ${filterBy === 'name' ? 'bg-gray-300' : ''}`} onClick={() => handleFilterBy('name')}>Filtro Nome</li>
+            </ul>
+          )}
         </div>
       </div>
+      
       <div className="relative overflow-x-auto w-min mx-auto">
-        <table className="w-full divide-y divide-gray-200 shadow-xl rounded-md">  
-          <Searchbar className="w-full hidden" onFilterClick={() => console.log('')} />
-          <TableHeader textName='Nome' textAge='Idade' textAcao='Ação'/>
+        <table className="w-full divide-y divide-gray-200 shadow-xl rounded-md">
+        <thead className="bg-gray-50 ">
+          <div className={`flex p-4 text-gray-500 font-semibold`}>
+            <p className={`${pStyle} gap-2 justify-center`}><input type="checkbox" id="" name="" className='cursor-pointer' />{countItems()} peoples(s)</p>
+            <p className={`${pStyle} justify-center cursor-pointer  text-red-500`}>Show all</p>
+            <p className={`${pStyle} justify-center cursor-pointer`}><Download />Download</p>
+          </div>
+            <tr>
+              <th scope="col" className={thStyle}>
+                Nome
+              </th>
+              <th scope="col" className={thStyle}>
+                Idade
+              </th>
+              <th scope="col" className={thStyle}
+              >
+                Ação
+              </th>
+            </tr>
+          </thead>
           <tbody className="divide-y divide-gray-200">
             {rows}
           </tbody>
