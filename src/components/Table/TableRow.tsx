@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 interface TableRowProps {
   name: string;
   age: number;
-  selectAll: boolean; // Adicionando selectAll como uma propriedade
+  selectAll: boolean; 
 }
 
 const TableRow = ({ name, age, selectAll }: TableRowProps) => {
@@ -12,7 +12,7 @@ const TableRow = ({ name, age, selectAll }: TableRowProps) => {
   const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
-    setIsSelected(selectAll); // Atualizando o estado isSelected quando selectAll for alterado
+    setIsSelected(selectAll);
   }, [selectAll]);
 
   const handleActionClick = (action: string) => {

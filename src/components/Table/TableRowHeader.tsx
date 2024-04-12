@@ -20,7 +20,7 @@ const TableRowHeader = ({ handleSortOrder }: TableRowHeaderProps) => {
               <ChevronUp size={15}/>
             </button>
           )}
-          {header === 'age' && ( // falta ordenar em função da idade, está ordernado pelo nome
+          {header === 'age' && ( 
             <button onClick={() => handleSortOrder('age')} className="ml-2 "> 
               <ChevronUp size={15}/>
             </button>

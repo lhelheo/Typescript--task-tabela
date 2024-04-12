@@ -1,3 +1,5 @@
+// No componente Table
+
 import { useState } from 'react';
 import TableRow from './TableRow';
 import data from '../../data.json';
@@ -28,12 +30,14 @@ const Table = () => {
     return filteredData.length;
   }
 
-  const handleSortOrder = () => {
-    if (sortOrder === 'asc') {
-      setSortOrder('desc');
-    } else {
-      setSortOrder('asc');
-    }
+  const handleSortOrder = (field: string) => { 
+    setSortOrder(prevSortOrder => {
+      if (prevSortOrder === 'asc') {
+        return 'desc';
+      } else {
+        return 'asc';
+      }
+    });
   };
 
   const handleFilterBy = (option: FilterOption) => {
@@ -57,9 +61,9 @@ const Table = () => {
 
   const sortedData = sortOrder !== '' ? [...filteredData].sort((a, b) => {
     if (sortOrder === 'asc') {
-      return a.name.localeCompare(b.name);
+      return a.name.localeCompare(b.name); 
     } else {
-      return b.name.localeCompare(a.name);
+      return b.name.localeCompare(a.name); 
     }
   }) : filteredData;
 
