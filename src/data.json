@@ -11,5 +11,9 @@
 	{
 		"name": "will smith",
 		"age": 30
+	},
+	{
+		"name": "willsmith",
+		"age": 30
 	}
 ]

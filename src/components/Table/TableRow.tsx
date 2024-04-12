@@ -18,7 +18,7 @@ const TableRow = (props
       setDropdownOpen(false); 
     };
     const toggleSelection = () => { 
-      setIsSelected(!isSelected); 
+      setIsSelected(!isSelected);
     };
 
     const liStyle = "cursor-pointer p-2 hover:bg-gray-100";

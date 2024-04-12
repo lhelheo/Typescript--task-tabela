@@ -6,8 +6,8 @@ const TableRowHeader = () => {
 
   return (
     <tr>
-      {headers.map(header => (
-        <th key={header} scope="col" className={thStyle}>
+      {headers.map((header, index) => (
+        <th key={`${header} - ${index}`} scope="col" className={thStyle}>
           {header.charAt(0).toUpperCase() + header.slice(1)}
         </th>
       ))}

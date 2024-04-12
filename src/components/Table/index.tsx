@@ -3,11 +3,11 @@ import TableRow from './TableRow';
 import data from '../../data.json';
 import { ChevronDown, Download } from 'lucide-react';
 import TableRowHeader from './TableRowHeader';
+import { ListItem } from '../List/item';
 
-  type FilterOption = 'all' | 'age' | 'name';
+type FilterOption = 'all' | 'age' | 'name';
 
-  const liStyle = "cursor-pointer p-2 hover:bg-gray-100";
-  const pStyle = "w-[140px] flex gap-2 justify-center items-center";
+const liStyle = "cursor-pointer p-2 hover:bg-gray-100";
 
 
 const Table = () => {
@@ -34,14 +34,17 @@ const Table = () => {
     } else if (filterBy === 'name' && person.name.toLowerCase().charCodeAt(0) < 109) {
       return false;
     }
-    return person.name.toLowerCase().includes(filterText) || person.age.toString().includes(filterText);
+
+    if (filterText !== "") {
+      const by_name = person.name.toLowerCase().includes(filterText)
+      const by_age = person.age.toString().includes(filterText);
+      return by_name || by_age
+    }
+
+    return person
   });
 
-  const rows = filteredData.map((person, index) => (
-    <>
-      <TableRow key={index} name={person.name} age={person.age} />
-    </>
-  ));
+  const rows = filteredData.map((person, index) => (<TableRow key={`${person.name} - ${index}`} name={person.name} age={person.age} />))
 
   return (
     <>
@@ -73,13 +76,13 @@ const Table = () => {
       </div>
       
       <div className="relative overflow-x-auto w-min mx-auto">
+        <ul className={`flex p-4 text-gray-500 font-semibold`}>
+            <ListItem><input type="checkbox" id="" name="" className='cursor-pointer' />{countItems()} peoples(s)</ListItem>
+            <ListItem variant='error'>Show all</ListItem>
+            <ListItem><Download />Download</ListItem>
+        </ul>
         <table className="w-full divide-y divide-gray-200 shadow-xl rounded-md">
-        <thead className="bg-gray-50 ">
-          <div className={`flex p-4 text-gray-500 font-semibold`}>
-            <p className={`${pStyle} gap-2 justify-center`}><input type="checkbox" id="" name="" className='cursor-pointer' />{countItems()} peoples(s)</p>
-            <p className={`${pStyle} justify-center cursor-pointer  text-red-500`}>Show all</p>
-            <p className={`${pStyle} justify-center cursor-pointer`}><Download />Download</p>
-          </div>
+          <thead className="bg-gray-50 ">
             <TableRowHeader />
           </thead>
           <tbody className="divide-y divide-gray-200">

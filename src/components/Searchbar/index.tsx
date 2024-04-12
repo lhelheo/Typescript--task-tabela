@@ -11,7 +11,7 @@ const Searchbar = (props: SearchbarProps) => {
         <>  
             <label className={`rounded ${bgSearchbar} font-bold py-3 flex px-4 ${props.className}`}>
                 <input type="text" placeholder="Pesquise aqui..." className={`w-full ${bgSearchbar} px-2`}/>
-                <Button label="Filtros" onClick={props.onFilterClick}/> {/* Adicionado onClick */}
+                <Button label="Filtros" onClick={props.onFilterClick}/>
             </label>
         </>
     );
