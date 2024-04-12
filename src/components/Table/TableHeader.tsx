@@ -1,5 +1,4 @@
 import TableOptions from "./TableOptions";
-import Searchbar from "../Searchbar";
 interface TableHeaderProps{
   textName: string;
   textAge: string;
@@ -16,9 +15,7 @@ const TableHeader = (props: TableHeaderProps) => {
     <>
    
         <thead className="bg-gray-50 ">
-          <Searchbar className="" />
           <TableOptions className="" />
-
             <tr>
               <th
                 scope="col"

@@ -4,8 +4,6 @@ import { useState } from 'react';
 interface TableRowProps {
   name: string;
   age: number;
-  isSelected?: boolean;
-  onClick?: () => void;
 }
 
 const TableRow = (props
